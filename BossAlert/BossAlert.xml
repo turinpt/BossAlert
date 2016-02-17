@@ -1,0 +1,13 @@
+<Ui xsi:schemaLocation="http://www.blizzard.com/wow/ui/">
+	<Script file="BossAlert.lua"/>
+	
+	<!-- Frame to handle all core events -->
+	<Frame name="BA_frame">
+		<Scripts>
+			<OnUpdate>
+				BA_OnUpdate();
+			</OnUpdate>
+		</Scripts>
+	</Frame>
+
+</Ui>

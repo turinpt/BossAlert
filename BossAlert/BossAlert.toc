@@ -1,0 +1,5 @@
+## Interface: 11200
+## Title: BossAlert
+## Author: Guybrush
+## Version: 0.1
+BossAlert.xml
