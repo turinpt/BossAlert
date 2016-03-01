@@ -18,7 +18,7 @@ function BA_OnUpdate()
 
 				-- Check for Hunter pets
 				local tooltip2 = getglobal("GameTooltipTextLeft2"):GetText()
-				if tooltip2 ~= nil and not string.find(tooltip2,"Pet") then
+				if tooltip2 ~= nil and string.find(tooltip2,"Boss") then
 					BA_Alert(tooltip)
 				end
 
