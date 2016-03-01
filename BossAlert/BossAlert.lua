@@ -8,6 +8,7 @@ function BA_OnUpdate()
 	-- Run once per second
 	local time = GetTime()
 	if math.floor(time) > lastUpdate then
+		lastUpdate = time;
 
 		local tooltip = getglobal("GameTooltipTextLeft1"):GetText()
 		if tooltip == nil then return end
