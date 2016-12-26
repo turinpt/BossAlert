@@ -1,4 +1,4 @@
-local BA_enabled = true
+local BA_enabled = false
 local lastUpdate = 0
 local bosses = { "Lord Kazzak", "Azuregos", "Lethon", "Ysondre", "Emeriss", "Taerar" }
 
@@ -7,13 +7,16 @@ function BA_OnUpdate()
 
 	-- Run once per second
 	local time = GetTime()
-	if math.floor(time) > lastUpdate then
+	if math.floor(time) > lastUpdate + 3 then
 		lastUpdate = time;
+
+		for _,b in pairs(bosses) do
+			TargetByName(b)
+		end
 
 		local tooltip = getglobal("GameTooltipTextLeft1"):GetText()
 		if tooltip == nil then return end
 
-		-- Check tooltip text
 		for _,b in pairs(bosses) do
 			if tooltip == b then
 
@@ -23,6 +26,18 @@ function BA_OnUpdate()
 					BA_Alert(tooltip)
 				end
 
+			end
+		end
+	end
+end
+
+function BA_OnEvent(event)
+	if not BA_enabled then return end
+
+	if(event == "PLAYER_TARGET_CHANGED") then
+		for _,b in pairs(bosses) do
+			if (UnitName("target") == b and UnitClassification("target") == "worldboss" and not UnitIsDead("target")) then
+				BA_Alert(b)
 			end
 		end
 	end
@@ -42,8 +57,13 @@ end
 --= Register the Slash Command
 --============================
 SlashCmdList["BA"] = function(_msg)
-	BA_enabled = true
-	DEFAULT_CHAT_FRAME:AddMessage("Boss Alert Enabled", 1,1,0)
+	if BA_enabled then
+		BA_enabled = false
+		DEFAULT_CHAT_FRAME:AddMessage("|cfff00000Boss Alert Disabled|r", 1,1,0)
+	else 
+		BA_enabled = true
+		DEFAULT_CHAT_FRAME:AddMessage("|c000fff00Boss Alert Enabled|r", 1,1,0)
+	end
 end
 
 SLASH_BA1 = "/ba";

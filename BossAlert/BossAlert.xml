@@ -1,9 +1,15 @@
 <Ui xsi:schemaLocation="http://www.blizzard.com/wow/ui/">
 	<Script file="BossAlert.lua"/>
-	
+
 	<!-- Frame to handle all core events -->
 	<Frame name="BA_frame">
 		<Scripts>
+			<OnLoad>
+				this:RegisterEvent("PLAYER_TARGET_CHANGED");
+			</OnLoad>
+			<OnEvent>
+				BA_OnEvent(event);
+			</OnEvent>
 			<OnUpdate>
 				BA_OnUpdate();
 			</OnUpdate>
